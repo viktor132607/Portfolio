@@ -20,12 +20,12 @@ type LanguageStat = {
 
 type GitHubStats = {
   repos: number;
-  totalCommits: number;
+  totalCommits: string;
   languages: LanguageStat[];
 };
 
 const githubUsername = "viktor132607";
-const manualTotalCommits = 580;
+const manualTotalCommits = "600+";
 
 const languageColorMap: Record<string, { solid: string; soft: string }> = {
   "C#": { solid: "#68217A", soft: "#D9B8E5" },
@@ -177,22 +177,24 @@ export function Hero({ lang }: HeroProps) {
               {profile.headline}
             </h1>
 
-            <p className="mt-7 max-w-3xl text-base leading-8 text-muted sm:text-lg lg:text-xl lg:leading-9">
-              {profile.summary}
-            </p>
+            <div className="mt-7 max-w-4xl rounded-[1.5rem] border border-line bg-panel/80 p-5 shadow-soft backdrop-blur-md dark:border-cyan-400/35 dark:bg-slate-950/75 dark:shadow-[0_0_35px_rgba(34,211,238,0.12)]">
+              <p className="text-base font-medium leading-8 text-ink dark:text-white sm:text-lg lg:text-xl lg:leading-9">
+                {profile.summary}
+              </p>
+            </div>
           </div>
 
           <div className="mt-9 flex flex-wrap gap-3">
             <a
               href="#experience"
-              className="rounded-full bg-teal-600 px-5 py-3 text-sm font-semibold text-white shadow-sm transition hover:bg-teal-700 dark:bg-white dark:text-slate-950 dark:hover:bg-slate-200"
+              className="rounded-full bg-teal-600 px-5 py-3 text-sm font-semibold text-white shadow-sm transition hover:bg-teal-700 dark:border-cyan-400/50 dark:bg-cyan-500 dark:text-white dark:hover:bg-cyan-300"
             >
               {buttons.viewExperience}
             </a>
 
             <a
               href="#projects"
-              className="rounded-full bg-teal-600 px-5 py-3 text-sm font-semibold text-white shadow-sm transition hover:bg-teal-700 dark:bg-white dark:text-slate-950 dark:hover:bg-slate-200"
+              className="rounded-full bg-teal-600 px-5 py-3 text-sm font-semibold text-white shadow-sm transition hover:bg-teal-700 dark:border-cyan-400/50 dark:bg-cyan-500 dark:text-white dark:hover:bg-cyan-300"
             >
               {buttons.viewProjects}
             </a>
@@ -201,7 +203,7 @@ export function Hero({ lang }: HeroProps) {
               href={profile.cvUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="rounded-full bg-teal-600 px-5 py-3 text-sm font-semibold text-white shadow-sm transition hover:bg-teal-700 dark:bg-white dark:text-slate-950 dark:hover:bg-slate-200"
+              className="rounded-full bg-teal-600 px-5 py-3 text-sm font-semibold text-white shadow-sm transition hover:bg-teal-700 dark:border-cyan-400/50 dark:bg-cyan-500 dark:text-white dark:hover:bg-cyan-300"
             >
               {buttons.downloadCv}
             </a>
@@ -210,14 +212,14 @@ export function Hero({ lang }: HeroProps) {
               href={githubUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="rounded-full bg-slate-950 px-5 py-3 text-sm font-semibold text-white shadow-sm transition hover:bg-slate-800 dark:bg-teal-600 dark:text-white dark:hover:bg-teal-500"
+              className="rounded-full bg-slate-950 px-5 py-3 text-sm font-semibold text-white shadow-sm transition hover:bg-slate-800 dark:border-fuchsia-400/50 dark:bg-fuchsia-600 dark:text-white dark:hover:bg-fuchsia-500"
             >
               GitHub
             </a>
           </div>
         </div>
 
-        <aside className="flex rounded-[2rem] border border-teal-200/80 bg-white/80 p-6 shadow-soft backdrop-blur dark:border-teal-900/70 dark:bg-[#081f1f]/85">
+        <aside className="flex rounded-[2rem] border border-teal-200/80 bg-white/80 p-6 shadow-soft backdrop-blur dark:border-cyan-800/50 dark:bg-slate-950/85">
           <div className="flex w-full flex-col">
             <div className="flex items-center justify-between gap-4">
               <p className="kicker">GitHub</p>
@@ -226,14 +228,14 @@ export function Hero({ lang }: HeroProps) {
                 href={githubUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="rounded-full border border-teal-200 px-5 py-2 text-sm font-semibold text-ink transition hover:bg-teal-50 dark:border-teal-700/70 dark:text-white dark:hover:bg-teal-950"
+                className="rounded-full border border-teal-200 px-5 py-2 text-sm font-semibold text-ink transition hover:bg-teal-50 dark:border-cyan-700/60 dark:text-white dark:hover:bg-teal-950"
               >
                 Open
               </a>
             </div>
 
             <div className="mt-6 grid grid-cols-2 gap-3">
-              <div className="rounded-2xl border border-teal-200/80 bg-white/70 p-4 dark:border-teal-900/70 dark:bg-teal-950/40">
+              <div className="rounded-2xl border border-teal-200/80 bg-white/70 p-4 dark:border-cyan-800/50 dark:bg-slate-950/70">
                 <p className="text-xs font-semibold uppercase tracking-[0.18em] text-muted dark:text-white">
                   Public repos
                 </p>
@@ -242,7 +244,7 @@ export function Hero({ lang }: HeroProps) {
                 </p>
               </div>
 
-              <div className="rounded-2xl border border-teal-200/80 bg-white/70 p-4 dark:border-teal-900/70 dark:bg-teal-950/40">
+              <div className="rounded-2xl border border-teal-200/80 bg-white/70 p-4 dark:border-cyan-800/50 dark:bg-slate-950/70">
                 <p className="text-xs font-semibold uppercase tracking-[0.18em] text-muted dark:text-white">
                   Total commits
                 </p>
@@ -269,7 +271,7 @@ export function Hero({ lang }: HeroProps) {
                       <span className="mt-1 text-3xl font-semibold tracking-[-0.04em] text-ink dark:text-white">
                         {chartLanguages.length}
                       </span>
-                      <span className="text-xs text-muted dark:text-slate-300">languages</span>
+                      <span className="text-xs text-muted dark:text-white">languages</span>
                     </div>
                   </div>
                 )}

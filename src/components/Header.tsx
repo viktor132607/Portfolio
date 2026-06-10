@@ -10,12 +10,12 @@ type HeaderProps = {
 const sectionOrder = ["skills", "about", "experience", "projects", "education", "certificates", "contact"] as const;
 
 export function Header({ lang }: HeaderProps) {
-  const t = content[lang];
+  const t = content[lang] as any;
   const [activeSection, setActiveSection] = useState("top");
   const [isDark, setIsDark] = useState(false);
 
   const navItems = useMemo(() => {
-    const labels = new Map(t.navItems.map((item) => [item.href, item.label]));
+    const labels = new Map<string, string>(t.navItems.map((item: any) => [item.href, item.label] as [string, string]));
 
     return sectionOrder.map((id) => ({
       id,
@@ -101,13 +101,13 @@ export function Header({ lang }: HeaderProps) {
   const homeLabel = lang === "bg" ? "Начало" : "Home";
 
   return (
-    <header className="sticky top-0 z-50 border-b border-teal-700 bg-teal-700 shadow-sm dark:border-teal-900/80 dark:bg-[#031f1f]/95 dark:shadow-[0_10px_40px_rgba(0,0,0,0.35)]">
+    <header className="sticky top-0 z-50 border-b border-teal-700 bg-teal-700 shadow-sm dark:border-cyan-900/70 dark:bg-slate-950/95 dark:shadow-[0_10px_40px_rgba(0,0,0,0.35)]">
       <div className="section-shell flex min-h-16 items-center justify-between gap-6">
         <nav className="hidden items-center gap-5 lg:flex">
           <button
             type="button"
             onClick={() => scrollToSection("top")}
-            className="relative py-2 text-sm font-semibold text-white transition hover:text-slate-200"
+            className="relative py-2 text-sm font-semibold text-white transition hover:text-white"
           >
             {homeLabel}
 
@@ -124,7 +124,7 @@ export function Header({ lang }: HeaderProps) {
                 key={item.href}
                 type="button"
                 onClick={() => scrollToSection(item.id)}
-                className="relative py-2 text-sm font-semibold text-white transition hover:text-slate-200"
+                className="relative py-2 text-sm font-semibold text-white transition hover:text-white"
               >
                 {item.label}
 
@@ -140,14 +140,14 @@ export function Header({ lang }: HeaderProps) {
           <button
             type="button"
             onClick={toggleTheme}
-            className="rounded-full border border-teal-200/60 bg-teal-600 px-4 py-2 text-sm font-semibold text-white transition hover:bg-teal-500 dark:border-teal-700/70 dark:bg-teal-950 dark:hover:bg-teal-900"
+            className="rounded-full border border-teal-200/60 bg-teal-600 px-4 py-2 text-sm font-semibold text-white transition hover:bg-teal-500 dark:border-cyan-700/60 dark:bg-slate-950 dark:hover:bg-cyan-950"
           >
             {isDark ? "Light" : "Dark"}
           </button>
 
           <a
             href={`/${nextLang}`}
-            className="rounded-full border border-teal-200/60 bg-teal-600 px-4 py-2 text-sm font-semibold text-white transition hover:bg-teal-500 dark:border-teal-700/70 dark:bg-teal-950 dark:hover:bg-teal-900"
+            className="rounded-full border border-teal-200/60 bg-teal-600 px-4 py-2 text-sm font-semibold text-white transition hover:bg-teal-500 dark:border-cyan-700/60 dark:bg-slate-950 dark:hover:bg-cyan-950"
           >
             {nextLang.toUpperCase()}
           </a>
@@ -156,7 +156,7 @@ export function Header({ lang }: HeaderProps) {
             href={t.profile.cvUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="hidden rounded-full border border-teal-200/60 bg-teal-600 px-5 py-2 text-sm font-semibold text-white transition hover:bg-teal-500 sm:inline-flex dark:border-teal-700/70 dark:bg-teal-950 dark:hover:bg-teal-900"
+            className="hidden rounded-full border border-teal-200/60 bg-teal-600 px-5 py-2 text-sm font-semibold text-white transition hover:bg-teal-500 sm:inline-flex dark:border-cyan-700/60 dark:bg-slate-950 dark:hover:bg-cyan-950"
           >
             {t.buttons.downloadCv}
           </a>

@@ -9,20 +9,20 @@
   --color-ink: 17 24 39;
   --color-paper: 248 250 252;
   --color-panel: 255 255 255;
-  --color-line: 204 251 241;
+  --color-line: 186 230 253;
   --color-muted: 71 85 105;
-  --color-accent: 13 148 136;
+  --color-accent: 14 165 233;
   --shadow-soft: 15 23 42;
 }
 
 html.dark {
   color-scheme: dark;
-  --color-ink: 226 232 240;
+  --color-ink: 238 245 255;
   --color-paper: 2 6 23;
-  --color-panel: 15 23 42;
-  --color-line: 20 83 76;
-  --color-muted: 148 163 184;
-  --color-accent: 45 212 191;
+  --color-panel: 7 17 34;
+  --color-line: 34 211 238;
+  --color-muted: 181 199 218;
+  --color-accent: 34 211 238;
   --shadow-soft: 0 0 0;
 }
 
@@ -30,16 +30,83 @@ html.dark {
   box-sizing: border-box;
 }
 
+html,
 body {
+  min-height: 100%;
+}
+
+body {
+  position: relative;
+  isolation: isolate;
+  min-height: 100vh;
   margin: 0;
-  background: linear-gradient(90deg, #f8fafc 0%, #ffffff 42%, #ecfeff 72%, #ccfbf1 100%);
+  overflow-x: hidden;
+  background: url("/light-theme-bg.png") center top / cover fixed no-repeat;
   color: rgb(var(--color-ink));
 }
 
 html.dark body {
   background:
-    radial-gradient(circle at 50% -18%, rgba(45, 212, 191, 0.08), transparent 30rem),
-    linear-gradient(180deg, #020617 0%, #06151a 48%, #071f1f 100%);
+    linear-gradient(180deg, rgba(2, 6, 23, 0.16), rgba(2, 6, 23, 0.42)),
+    url("/circuit-board-bg.png") center top / cover fixed no-repeat;
+}
+
+body::before,
+body::after {
+  content: "";
+  pointer-events: none;
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+}
+
+body::before {
+  background:
+    linear-gradient(90deg, transparent 0%, rgba(0, 225, 255, 0.36) 48%, transparent 100%),
+    linear-gradient(180deg, transparent 0%, rgba(255, 0, 214, 0.26) 52%, transparent 100%);
+  background-size: 46rem 2px, 2px 42rem;
+  background-position: -46rem 22%, 68% -42rem;
+  mix-blend-mode: screen;
+  opacity: 0.5;
+  filter: drop-shadow(0 0 8px rgba(34, 211, 238, 0.4));
+  animation: circuit-scan 8s linear infinite;
+}
+
+body::after {
+  background:
+    radial-gradient(circle at 16% 15%, rgba(255, 0, 184, 0.35), transparent 14rem),
+    radial-gradient(circle at 88% 12%, rgba(0, 213, 255, 0.28), transparent 14rem),
+    radial-gradient(circle at 72% 64%, rgba(0, 213, 255, 0.24), transparent 18rem),
+    linear-gradient(180deg, transparent, rgba(2, 6, 23, 0.18));
+  mix-blend-mode: screen;
+  opacity: 0.86;
+  animation: circuit-glow 5s ease-in-out infinite;
+}
+
+body > * {
+  position: relative;
+  z-index: 1;
+}
+
+@keyframes circuit-scan {
+  0% {
+    background-position: -46rem 22%, 68% -42rem;
+  }
+
+  100% {
+    background-position: 100vw 22%, 68% 100vh;
+  }
+}
+
+@keyframes circuit-glow {
+  0%,
+  100% {
+    opacity: 0.72;
+  }
+
+  50% {
+    opacity: 1;
+  }
 }
 
 ::selection {
@@ -60,21 +127,288 @@ html.dark body {
 }
 
 .card {
-  @apply rounded-[1.5rem] border border-line bg-panel/80 p-5 shadow-soft backdrop-blur sm:rounded-[2rem] sm:p-6;
+  @apply rounded-[1.5rem] border border-line bg-panel/80 p-5 shadow-soft backdrop-blur-md sm:rounded-[2rem] sm:p-6;
 }
 
 .pill {
-  @apply rounded-full border border-line bg-panel/60 px-3 py-1 text-xs font-medium text-muted;
+  border-color: rgba(59, 130, 246, 0.28);
+  background: linear-gradient(135deg, rgba(239, 246, 255, 0.92), rgba(245, 243, 255, 0.96));
+  color: rgb(55, 65, 81);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.55), 0 8px 22px rgba(96, 165, 250, 0.08);
+  @apply rounded-full px-3 py-1 text-xs font-medium;
 }
 
 html.dark .card {
-  @apply border-teal-900/70 bg-[#081f1f]/85;
+  border-color: rgba(34, 211, 238, 0.32);
+  background: linear-gradient(180deg, rgba(7, 18, 36, 0.9), rgba(4, 10, 25, 0.78));
+  box-shadow:
+    0 0 0 1px rgba(168, 85, 247, 0.08),
+    0 20px 80px rgba(0, 0, 0, 0.28),
+    0 0 34px rgba(34, 211, 238, 0.12);
 }
 
 html.dark .pill {
-  @apply border-teal-800/70 bg-teal-950/50 text-white;
+  border-color: rgba(125, 211, 252, 0.34);
+  background: linear-gradient(135deg, rgba(8, 47, 73, 0.86), rgba(49, 46, 129, 0.84), rgba(91, 33, 182, 0.82));
+  color: rgb(240, 249, 255);
+  box-shadow: inset 0 0 18px rgba(125, 211, 252, 0.08), 0 0 18px rgba(167, 139, 250, 0.12);
 }
 
 html.dark .kicker {
-  @apply text-white;
+  color: rgb(103, 232, 249);
+  text-shadow: 0 0 14px rgba(34, 211, 238, 0.45);
+}
+
+/* Dark theme polish: cyber panels, text, buttons and section blocks. */
+html.dark header {
+  border-color: rgba(34, 211, 238, 0.24);
+  background: linear-gradient(90deg, rgba(2, 6, 23, 0.94), rgba(6, 20, 43, 0.92), rgba(18, 8, 37, 0.92));
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.42), 0 0 24px rgba(34, 211, 238, 0.1);
+}
+
+html.dark h1,
+html.dark h2,
+html.dark h3 {
+  color: rgb(241, 248, 255);
+}
+
+html.dark p,
+html.dark li {
+  color: rgb(194, 213, 232);
+}
+
+html.dark a.rounded-full,
+html.dark button.rounded-full {
+  border-color: rgba(34, 211, 238, 0.45);
+  background: linear-gradient(135deg, rgba(8, 145, 178, 0.92), rgba(124, 58, 237, 0.86));
+  color: white;
+  box-shadow: 0 0 22px rgba(34, 211, 238, 0.16);
+}
+
+html.dark a.rounded-full:hover,
+html.dark button.rounded-full:hover {
+  border-color: rgba(244, 114, 182, 0.65);
+  background: linear-gradient(135deg, rgba(6, 182, 212, 0.95), rgba(217, 70, 239, 0.85));
+  color: white;
+}
+
+html.dark aside,
+html.dark article[class*="rounded-[2rem]"],
+html.dark div[class*="rounded-[2rem]"] {
+  border-color: rgba(34, 211, 238, 0.28);
+  background-color: rgba(5, 15, 32, 0.82);
+  box-shadow: 0 0 42px rgba(34, 211, 238, 0.08);
+}
+
+html.dark div[class*="rounded-2xl"] {
+  border-color: rgba(34, 211, 238, 0.24);
+}
+
+html.dark section[id="contact"] > div {
+  background: linear-gradient(135deg, rgba(4, 18, 38, 0.9), rgba(13, 22, 57, 0.84), rgba(46, 12, 60, 0.78));
+  border-color: rgba(34, 211, 238, 0.36);
+}
+
+html.dark section[id="contact"] a.rounded-2xl {
+  background: rgba(3, 14, 30, 0.78);
+  border-color: rgba(34, 211, 238, 0.32);
+}
+
+html.dark section[id="contact"] a.rounded-2xl:hover {
+  background: rgba(8, 47, 73, 0.82);
+  border-color: rgba(244, 114, 182, 0.6);
+}
+
+html.dark iframe,
+html.dark img.bg-white,
+html.dark div.bg-white {
+  border-color: rgba(34, 211, 238, 0.18);
+}
+
+
+/* Stronger dark theme readability: make muted text clean white and keep content inside visible glass boxes. */
+html.dark .text-muted,
+html.dark main p,
+html.dark main li,
+html.dark main span:not([class*="bg-"]),
+html.dark footer p,
+html.dark footer a {
+  color: rgba(245, 250, 255, 0.94) !important;
+}
+
+html.dark .text-ink,
+html.dark main strong,
+html.dark main h1,
+html.dark main h2,
+html.dark main h3,
+html.dark main h4 {
+  color: rgb(255, 255, 255) !important;
+}
+
+html.dark .card,
+html.dark aside,
+html.dark article[class*="rounded-[2rem]"],
+html.dark div[class*="rounded-[2rem]"] {
+  background: linear-gradient(180deg, rgba(5, 15, 32, 0.92), rgba(3, 10, 24, 0.82)) !important;
+  border-color: rgba(34, 211, 238, 0.34) !important;
+  box-shadow:
+    0 0 0 1px rgba(168, 85, 247, 0.1),
+    0 20px 80px rgba(0, 0, 0, 0.32),
+    0 0 36px rgba(34, 211, 238, 0.13) !important;
+}
+
+html.dark .pill {
+  color: rgb(245, 250, 255) !important;
+}
+
+/* Light theme polish: readable glass cards, clear text and cleaner buttons over the PCB background. */
+html:not(.dark) {
+  --color-ink: 12 23 42;
+  --color-paper: 244 250 255;
+  --color-panel: 255 255 255;
+  --color-line: 14 165 233;
+  --color-muted: 38 52 73;
+  --color-accent: 2 132 199;
+  --shadow-soft: 15 23 42;
+}
+
+html:not(.dark) body {
+  background: url("/light-theme-bg.png") center top / cover fixed no-repeat !important;
+}
+
+html:not(.dark) body::before,
+html:not(.dark) body::after {
+  display: none !important;
+  opacity: 0 !important;
+  background: none !important;
+}
+
+html:not(.dark) header {
+  border-color: rgba(14, 116, 144, 0.28);
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0.92), rgba(236, 253, 255, 0.9), rgba(241, 245, 249, 0.92));
+  box-shadow: 0 10px 32px rgba(15, 23, 42, 0.12);
+  backdrop-filter: blur(18px);
+}
+
+html:not(.dark) header button,
+html:not(.dark) header a {
+  color: rgb(15, 23, 42) !important;
+}
+
+html:not(.dark) header a.rounded-full,
+html:not(.dark) header button.rounded-full {
+  border-color: rgba(14, 116, 144, 0.28) !important;
+  background: rgba(255, 255, 255, 0.82) !important;
+  color: rgb(15, 23, 42) !important;
+  box-shadow: 0 8px 24px rgba(14, 116, 144, 0.12) !important;
+}
+
+html:not(.dark) header a.rounded-full:hover,
+html:not(.dark) header button.rounded-full:hover {
+  border-color: rgba(14, 165, 233, 0.52) !important;
+  background: rgb(224, 242, 254) !important;
+  color: rgb(12, 74, 110) !important;
+}
+
+html:not(.dark) h1,
+html:not(.dark) h2,
+html:not(.dark) h3,
+html:not(.dark) h4,
+html:not(.dark) .text-ink,
+html:not(.dark) main strong {
+  color: rgb(8, 19, 35) !important;
+}
+
+html:not(.dark) p,
+html:not(.dark) li,
+html:not(.dark) .text-muted,
+html:not(.dark) footer p,
+html:not(.dark) footer a {
+  color: rgb(32, 46, 68) !important;
+}
+
+html:not(.dark) .kicker {
+  color: rgb(3, 105, 161) !important;
+  text-shadow: none;
+}
+
+html:not(.dark) .card,
+html:not(.dark) aside,
+html:not(.dark) article[class*="rounded-[2rem]"],
+html:not(.dark) div[class*="rounded-[2rem]"] {
+  border-color: rgba(14, 116, 144, 0.28) !important;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.9), rgba(240, 249, 255, 0.82)) !important;
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.72),
+    0 22px 60px rgba(15, 23, 42, 0.12),
+    0 0 26px rgba(14, 165, 233, 0.08) !important;
+}
+
+html:not(.dark) div[class*="rounded-2xl"] {
+  border-color: rgba(14, 116, 144, 0.24);
+}
+
+html:not(.dark) .pill {
+  border-color: rgba(96, 165, 250, 0.34) !important;
+  background: linear-gradient(135deg, rgba(239, 246, 255, 0.96), rgba(245, 243, 255, 0.98)) !important;
+  color: rgb(30, 41, 59) !important;
+  box-shadow: inset 0 0 18px rgba(96, 165, 250, 0.06), 0 10px 22px rgba(167, 139, 250, 0.08);
+}
+
+html:not(.dark) main a.rounded-full,
+html:not(.dark) main button.rounded-full {
+  border: 1px solid rgba(2, 132, 199, 0.32) !important;
+  background: linear-gradient(135deg, rgb(2, 132, 199), rgb(79, 70, 229)) !important;
+  color: white !important;
+  box-shadow: 0 14px 32px rgba(2, 132, 199, 0.18) !important;
+}
+
+html:not(.dark) main a.rounded-full:hover,
+html:not(.dark) main button.rounded-full:hover {
+  background: linear-gradient(135deg, rgb(3, 105, 161), rgb(124, 58, 237)) !important;
+  color: white !important;
+}
+
+html:not(.dark) section[id="contact"] > div {
+  border-color: rgba(14, 116, 144, 0.3) !important;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(224, 242, 254, 0.86), rgba(245, 243, 255, 0.84)) !important;
+}
+
+html:not(.dark) section[id="contact"] a.rounded-2xl {
+  border-color: rgba(14, 116, 144, 0.24) !important;
+  background: rgba(255, 255, 255, 0.78) !important;
+  color: rgb(15, 23, 42) !important;
+}
+
+html:not(.dark) section[id="contact"] a.rounded-2xl:hover {
+  border-color: rgba(14, 165, 233, 0.5) !important;
+  background: rgb(224, 242, 254) !important;
+}
+
+html:not(.dark) footer {
+  border-color: rgba(14, 116, 144, 0.28) !important;
+  background: rgba(248, 250, 252, 0.92) !important;
+  color: rgb(15, 23, 42) !important;
+}
+
+html:not(.dark) footer p,
+html:not(.dark) footer a {
+  color: rgb(32, 46, 68) !important;
+}
+
+
+/* FINAL: light theme must use the actual white PCB image, without dark overlays. */
+html:not(.dark) body {
+  background-image: url("/light-theme-bg.png") !important;
+  background-color: #f8fbff !important;
+  background-size: cover !important;
+  background-position: center top !important;
+  background-attachment: fixed !important;
+  background-repeat: no-repeat !important;
+}
+
+html:not(.dark) body::before,
+html:not(.dark) body::after {
+  content: none !important;
+  display: none !important;
 }
