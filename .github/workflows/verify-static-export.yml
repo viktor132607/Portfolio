@@ -1,0 +1,19 @@
+name: Verify static export
+
+on:
+  pull_request:
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run build
+      - name: Show exported routes
+        run: find out -maxdepth 2 -type f -name 'index.html' -print | sort
