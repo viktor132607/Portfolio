@@ -146,7 +146,7 @@ export function Header({ lang }: HeaderProps) {
           </button>
 
           <a
-            href={`/${nextLang}`}
+            href={`/portfolio/${nextLang}`}
             className="rounded-full border border-teal-200/60 bg-teal-600 px-4 py-2 text-sm font-semibold text-white transition hover:bg-teal-500 dark:border-cyan-700/60 dark:bg-slate-950 dark:hover:bg-cyan-950"
           >
             {nextLang.toUpperCase()}
