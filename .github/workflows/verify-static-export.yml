@@ -13,7 +13,7 @@ jobs:
         with:
           node-version: 22
           cache: npm
-      - run: npm ci
+      - run: npm install --no-audit --no-fund
       - run: npm run build
       - name: Show exported routes
         run: find out -maxdepth 2 -type f -name 'index.html' -print | sort
